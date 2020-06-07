@@ -1,4 +1,4 @@
-## Personal Information
+## Personal Information 个人信息
 
 - 2007 Borned in Shanghai, China
 
@@ -12,6 +12,8 @@
 
 - 2018- 就读于上海市实验学校
 
-## Me at Other Sites
+## Me at Other Sites 其他平台账号
 
-Waiting to be added...
+luogu: [Jasonying](https://www.luogu.com.cn/user/290524)
+
+洛谷：[Jasonying](https://www.luogu.com.cn/user/290524)
