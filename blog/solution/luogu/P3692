@@ -1,0 +1,151 @@
+[获得更好的阅读体验](https://www.luogu.com.cn/blog/jasonying/luogu-p3692-xia-huan-di-kao-shi) [题目传送门](https://www.luogu.com.cn/problem/P3692)
+
+---
+### 题目分析
+这是一道很简单的模拟 ~~，但是我弄了一中午交了十几次才AC~~，难点~~不~~是题目复杂~~而是不要晕过去~~，直接暴力。
+
+### 知识点
+1. 二进制转十进制
+
+没什么好讲的，就是模拟小奥中二进制转十进制。
+```cpp
+    getline(cin,s);
+    for(int i=0;i<s.size();i++){
+        if(s[i]=='1')num+=pow(2,16-i);
+    }
+```
+2. 输出 ans 并保留小数点后x位
+
+方法一：```cout<<fixed<<setprecision(x)<<ans<<endl;```
+
+方法二：```printf("%.xf",ans);```
+### 代码
+### Step1 检查考号的填写是否准确
+这一步主要的操作就是将二进制转换为十进制，在前面已经有所介绍，代码中有些语句的思路比较神奇，我会在注释中进行解释。
+```cpp
+bool ID(){
+    for(int i=1;i<=16;i++){//二进制转十进制
+        cin>>c;
+        if(c=='1')id+=pow(2,16-i);
+    }
+	if(id>=1&&id<=10000){//如果在范围之内
+		cout<<"ID: "<<id<<endl;//输出
+		return true;//考号正确，返回
+	}
+	cout<<"Wrong ID"<<endl<<endl;//输出
+	for(int i=1;i<=2+4*n;i++)cin>>cc;//读入剩余的2+4*n个字符
+	return false;//考号错误，返回
+}
+```
+### Step2 检查试卷类型是否正确
+这一步主要是判断考号最后一位与考生的填涂是否匹配，对应表如下：
+
+| 考号最后一位 | 考生填涂 | 试卷类型 |
+| :-: | :-: | :-: |
+| 0 | 10 | A
+| 1 | 01 | B
+上程序：
+```cpp
+void type(){
+    cin>>cc>>ccc;//输入两位字符
+    if(c=='1'&&cc!='1'&&ccc=='1'||c=='0'&&cc!='0'&&ccc=='0')cout<<"Type Correct"<<endl;//类型正确，输出
+    else cout<<"Type Incorrect"<<endl;//类型错误，输出
+    return;//返回
+}
+```
+### Step3 给单选题打分
+这一步就是统计正确的题目数量并计算分数，正确选项与考生填涂对应表如下：
+
+| 选项 | 正确填涂 | 对应的整数 |
+| :-: | :-: | :-: |
+| A | 1000 | 1000
+| B | 0100 | 100
+| C | 0010 | 10
+| D | 0001 | 1
+```cpp
+void answer(){
+    for(int i=0,m;i<n;i++){//循环判断正确
+        cin>>m;//以整数类型输入考生答案
+        if(m==1&&ans[i]=='D'||m==10&&ans[i]=='C'||m==100&&ans[i]=='B'||m==1000&&ans[i]=='A')crct++;//判断，正确题目数量加一
+    }
+    cout<<fixed<<setprecision(1)<<100.0*crct/n<<endl;//输出答案，注意一定要用100.0，不然会输出整数
+    return;//返回
+}
+```
+### 主程序
+以上就是三个步骤，我对其进行了模块化处理，这样主程序调用会比较方便，主程序如下：
+```cpp
+int main(){
+    cin>>T>>n;//输入
+    for(int i=0;i<n;i++)cin>>ans[i];//输入正确答案
+    for(int i=0;i<T;i++){
+    	crct=0;//清空正确题目数量
+        id=0;//清空十进制考号
+        if(!ID())continue;//如果考号错误，不需要进一步处理
+        type();//试卷类型
+        answer();//检查答案
+        cout<<endl;//换行别忘了
+    }
+    return 0;
+}
+```
+### 完整程序（无注释）
+```cpp
+#include<bits/stdc++.h>
+#define N 59
+using namespace std;
+int T,n,id,crct;
+char c,cc,ccc,ans[N];
+bool ID(){
+    for(int i=1;i<=16;i++){
+	cin>>c;
+	if(c=='1')id+=pow(2,16-i);
+    }
+    if(id>=1&&id<=10000){
+	cout<<"ID: "<<id<<endl;
+	return true;
+    }
+    cout<<"Wrong ID"<<endl<<endl;
+    for(int i=1;i<=2+4*n;i++)cin>>cc;
+    return false;
+}
+void type(){
+    cin>>cc>>ccc;
+    if(c=='1'&&cc!='1'&&ccc=='1'||c=='0'&&cc!='0'&&ccc=='0')cout<<"Type Correct"<<endl;
+    else cout<<"Type Incorrect"<<endl;
+    return;
+}
+void answer(){
+    for(int i=0,m;i<n;i++){
+        cin>>m;
+        if(m==1&&ans[i]=='D'||m==10&&ans[i]=='C'||m==100&&ans[i]=='B'||m==1000&&ans[i]=='A')crct++;
+    }
+    cout<<fixed<<setprecision(1)<<100.0*crct/n<<endl;
+    return;
+}
+int main(){
+    cin>>T>>n;
+    for(int i=0;i<n;i++)cin>>ans[i];
+    for(int i=0;i<T;i++){
+        crct=0;
+        id=0;
+        if(!ID())continue;
+        type();
+        answer();
+        cout<<endl;
+    }
+    return 0;
+}
+```
+### 结语
+不难，但是要注意**细节**
+
+以上是本蒟蒻的第三篇题解，前两篇都因为题解太多交不上去，既然dalao们看到这了，给个赞吧qwq
+
+-----
+### update
+- 2020.4.11 修复了部分代码的缩进问题
+
+- 2020.4.11 修复了文末多出一条分割线的问题
+
+- 2020.4.11 在文首增加了一条分割线
