@@ -1,4 +1,18 @@
-## Personal Information 个人信息
+## Personal Information
+
+- Name: Jason Ying
+
+- 姓名：应某某
+
+- Gender: Male
+
+- 性别：男
+
+- Birthday: 2007-8
+
+- 生日：2007年8月
+
+## Personal Experience 个人经历
 
 - 2007 Borned in Shanghai, China
 
@@ -17,3 +31,7 @@
 luogu: [Jasonying](https://www.luogu.com.cn/user/290524)
 
 洛谷：[Jasonying](https://www.luogu.com.cn/user/290524)
+
+Codeforces: [Jasonying](https://www.codeforces.com/profile/Jasonying)
+
+Codeforces：[Jasonying](https://www.codeforces.com/profile/Jasonying)
